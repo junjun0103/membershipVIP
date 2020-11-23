@@ -6,7 +6,7 @@ const HeaderUser = () => {
   return (
     <div>
       <Navbar className='navbar navbar-expand-sm bg-primary navbar-dark'>
-        <Navbar.Brand href='#' className='nav-link'>
+        <Navbar.Brand href='/managerpage' className='nav-link'>
           VIP Membership
         </Navbar.Brand>
         

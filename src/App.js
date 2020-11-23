@@ -24,6 +24,7 @@ function App() {
       <Provider store={store}>
         <Header id='navbar' />
         <Switch>
+          <Route exact path='/' component={CustomerPage} />
           <Route exact path='/customerpage' component={CustomerPage} />
           <Route exact path='/managerpage' component={ManagerPage} />
         </Switch>

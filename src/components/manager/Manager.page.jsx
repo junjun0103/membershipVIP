@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Manager.page.style.css'
-import CustomerCard from './CustomerCard'
 import firebase from 'firebase';
 
 const databaseURL = "https://vipmembership-9906e.firebaseio.com/"
@@ -51,14 +50,14 @@ class ManagerPage extends Component {
         {this.state.customerInfo&&Object.keys(this.state.customerInfo).map(id=>{
           const customer=this.state.customerInfo[id];
           return(
-            <div key={id} class="card mr-5 mt-4">
-              <div class="card-header">
+            <div key={id} className="card mr-5 mt-4">
+              <div className="card-header">
               </div>
-              <div class="card-body">
-                <h5 class="card-title">{customer.fName} {customer.lName}</h5>
-                <p class="card-text">{customer.phone}</p>
-                <p class="card-text">{customer.email}</p> 
-                <button class="btn btn-primary" onClick={() => this.romoveHandler(id)}>Remove</button>
+              <div className="card-body">
+                <h5 className="card-title">{customer.fName} {customer.lName}</h5>
+                <p className="card-text">{customer.phone}</p>
+                <p className="card-text">{customer.email}</p> 
+                <button className="btn btn-primary" onClick={() => this.romoveHandler(id)}>Remove</button>
               </div>
             </div>
              )
