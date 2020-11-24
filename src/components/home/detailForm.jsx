@@ -25,28 +25,33 @@ class DetailForm extends Component{
   }
 
   sweetAlertHandler=()=>{
-    // set email
+    // set email with provider
     let newEmail;
-    if(this.state.customerInfo.provider!=null || this.state.customerInfo.provider=='Provider'){
-      newEmail=this.state.customerInfo.email+this.state.customerInfo.provider
-    }else{
-      newEmail=this.state.customerInfo.email
-    }  
-
-    // upload data to firebase
+    // uploading data
     var tutorialsRef = firebase.database().ref("/customerInfo");
+
+
+    const test = new Promise((res,rej)=>{
+      if(this.state.customerInfo.provider!=null || this.state.customerInfo.provider=='Provider'){
+        newEmail=this.state.customerInfo.email+this.state.customerInfo.provider
+      }else{
+        newEmail=this.state.customerInfo.email
+      }  
+      res(1)
+    })
+
+    test.then(()=>{      
     tutorialsRef.push({
       fName: this.state.customerInfo.fName,
       lName: this.state.customerInfo.lName,
       phone: this.state.customerInfo.phone,
       email: newEmail
-    });  
-
-    // close alert
-    this.setState({ show: false })
-
-    // refresh 
-    window.location.reload();
+    }); 
+    }).then(()=>{
+      this.setState({ show: false })
+    }).then(()=>{
+      window.location.reload();
+    })
   }
 
   render(){ return (
@@ -93,7 +98,12 @@ class DetailForm extends Component{
                   <option >Provider</option>
                   <option value="@gmail.com">@gmail.com</option>
                   <option value="@yahoo.com">@yahoo.com</option>
+                  <option value="@icloud.com">@icloud.com</option>
+                  <option value="@hotmail.com">@hotmail.com</option>
                   <option value="@hotmail.co.nz">@hotmail.co.nz</option>
+                  <option value="@xtra.com">@xtra.com</option>
+                  <option value="@xtra.com">@xtra.co.nz</option>
+
                 </select>
               </div>                           
             </div>
