@@ -19,39 +19,44 @@ class DetailForm extends Component{
   mySubmitHandler = (event) => {    
     event.preventDefault();
 
+    // set email with provider
+    let newEmail;
+     // uploading data
+     var tutorialsRef = firebase.database().ref("/customerInfo");
+
+    // set email with provider function
+    const setEmail = () =>
+      new Promise((resolve, reject) => {
+        if(this.state.customerInfo.provider!=null || this.state.customerInfo.provider=='Provider'){
+          newEmail=this.state.customerInfo.email+this.state.customerInfo.provider
+        }else{
+          newEmail=this.state.customerInfo.email
+        }  
+        resolve(newEmail);
+      });
+
+    // uploading data function
+    const uploadingData = (hen) =>
+      new Promise((resolve, reject) => {
+        tutorialsRef.push({
+          fName: this.state.customerInfo.fName,
+          lName: this.state.customerInfo.lName,
+          phone: this.state.customerInfo.phone,
+          email: newEmail
+        }); 
+        resolve(true);
+      });
+
+      setEmail().then(uploadingData);
+
     // alert show
-    this.setState({ show: true })
+     this.setState({ show: true })
     
   }
 
   sweetAlertHandler=()=>{
-    // set email with provider
-    let newEmail;
-    // uploading data
-    var tutorialsRef = firebase.database().ref("/customerInfo");
-
-
-    const test = new Promise((res,rej)=>{
-      if(this.state.customerInfo.provider!=null || this.state.customerInfo.provider=='Provider'){
-        newEmail=this.state.customerInfo.email+this.state.customerInfo.provider
-      }else{
-        newEmail=this.state.customerInfo.email
-      }  
-      res(1)
-    })
-
-    test.then(()=>{      
-    tutorialsRef.push({
-      fName: this.state.customerInfo.fName,
-      lName: this.state.customerInfo.lName,
-      phone: this.state.customerInfo.phone,
-      email: newEmail
-    }); 
-    }).then(()=>{
-      this.setState({ show: false })
-    }).then(()=>{
-      window.location.reload();
-    })
+  this.setState({ show: false })
+  setTimeout(() => window.location.reload(), 300);    
   }
 
   render(){ return (
@@ -112,8 +117,8 @@ class DetailForm extends Component{
             </div>
             <SweetAlert
               show={this.state.show}
-              title="Thank you"
-              text="Your are VIP member now"
+              title="Thank you!"
+              text="Your submission has been sent"
               onConfirm={this.sweetAlertHandler}
             />
           </div>   
