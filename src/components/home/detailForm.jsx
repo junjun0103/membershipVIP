@@ -12,7 +12,8 @@ class DetailForm extends Component{
   constructor(){
     super();
     this.state = {
-      customerInfo:{fName:'',lName:'',phone:'',email:''}
+      customerInfo:{fName:'',lName:'',phone:'',email:'',provider:'@gmail.com'},
+      providerInput:{show:'off'}
     };
   }
 
@@ -56,23 +57,33 @@ class DetailForm extends Component{
 
   sweetAlertHandler=()=>{
   this.setState({ show: false })
-  setTimeout(() => window.location.reload(), 300);    
+  setTimeout(() => window.location.reload(), 1000);    
+  }
+
+  selectionHandler=(e)=>{
+    this.setState({customerInfo:{...this.state.customerInfo, provider: e.target.value }})
+
+    if(e.target.value==='other'){
+      this.setState({providerInput:{show: 'show'}})
+    }else{
+      this.setState({providerInput:{show: 'off'}})
+    }
   }
 
   render(){ return (
     <div >
       <form onSubmit={this.mySubmitHandler}>
         <div className="form-group">
-          <div className="container">
-            <div className="row mt-5">
-              <div className="col ">
+          <div className="container ">
+            <div className="row mt-5 justify-content-center align-items-center">
+              <div className="col-5 ">
                 <label htmlFor="fName">*First Name</label>
                 <input type="text" className="form-control" id="fName" required
           onChange={(e) => {
             this.setState({customerInfo:{...this.state.customerInfo, fName: e.target.value }});
           }}></input>
               </div>
-              <div className="col">
+              <div className="col-5">
                 <label htmlFor="lName">*Last Name</label>
                 <input type="text" className="form-control" id="lName" 
           onChange={(e) => {
@@ -80,40 +91,54 @@ class DetailForm extends Component{
           }}></input>
               </div>
             </div>
-            <div className="row mt-2">
-              <div className="col">
+            <div className="row mt-2 justify-content-center align-items-center">
+              <div className="col-10">
                 <label htmlFor="cNumber">*Contact Number</label>
                 <input type="number" className="form-control" id="cNumber" onChange={(e) => {
             this.setState({customerInfo:{...this.state.customerInfo, phone: e.target.value }});
           }}></input>
               </div>              
             </div>
-            <div className="row mt-2">
-              <div className="col">
+            <div className="row mt-2 justify-content-center align-items-center">
+              <div className={`${this.state.providerInput.show=='show'?'col-3':'col-5'}`}>
                 <label htmlFor="email">*Email Address</label>
                 <input type="text" className="form-control" id="email"  onChange={(e) => {
-            this.setState({customerInfo:{...this.state.customerInfo, email: e.target.value }});
-          }}></input>
-              </div>   
-              <div className="col pt-2">
+                this.setState({customerInfo:{...this.state.customerInfo, email: e.target.value }});
+                }}></input>
+              </div> 
+              <div className="col-1 mt-4">
+                <label></label>
+                <label className="atSizeBig">@</label>                
+              </div>    
+              <div className={`pt-2 ${this.state.providerInput.show=='show'?'col-3':'col-4'}`}>
                <label ></label>
-                <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => {this.setState({customerInfo:{...this.state.customerInfo, provider: e.target.value }});
-            ;
-          }}>
-                  <option >Provider</option>
-                  <option value="@gmail.com">@gmail.com</option>
-                  <option value="@yahoo.com">@yahoo.com</option>
-                  <option value="@icloud.com">@icloud.com</option>
-                  <option value="@hotmail.com">@hotmail.com</option>
-                  <option value="@hotmail.co.nz">@hotmail.co.nz</option>
-                  <option value="@xtra.com">@xtra.com</option>
-                  <option value="@xtra.com">@xtra.co.nz</option>
-
+                <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => {this.selectionHandler(e)}}>
+                  <option value="@gmail.com">gmail.com</option>
+                  <option value="@yahoo.com">yahoo.com</option>
+                  <option value="@yahoo.co.nz">yahoo.co.nz</option>
+                  <option value="@icloud.com">icloud.com</option>
+                  <option value="@hotmail.com">hotmail.com</option>
+                  <option value="@hotmail.co.nz">hotmail.co.nz</option>
+                  <option value="@xtra.com">xtra.com</option>
+                  <option value="@xtra.com">xtra.co.nz</option>
+                  <option value="other">Other...</option>
                 </select>
-              </div>                           
+              </div>
+              {
+                this.state.providerInput.show=='show'?
+                <div className="col-3 pt-2">
+                <label ></label>
+                <input type="text" className="form-control" id="provider" placeholder="ex) gmail.com" onChange={(e) => {
+                this.setState({customerInfo:{...this.state.customerInfo, provider: '@'+e.target.value }});
+                }}></input>
+              </div>       
+                
+                :''
+              }
+                                                        
             </div>
-            <div className="row mt-4 justify-content-center">
-              <button type="submit" className="btn btn-primary">SUBMIT</button>
+            <div className="row mt-5 justify-content-center">
+              <button type="submit" className="btn btn-primary" >SUBMIT</button>
             </div>
             <SweetAlert
               show={this.state.show}
