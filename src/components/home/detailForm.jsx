@@ -145,7 +145,7 @@ class DetailForm extends Component{
               </div>          
             </div>
             
-            <div className="row mt-4 justify-content-center">
+            <div className="row mt-3 justify-content-center">
               <button type="submit" className="btn btn-primary" >SUBMIT</button>
             </div>
             <SweetAlert
