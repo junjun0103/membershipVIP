@@ -71,11 +71,11 @@ class DetailForm extends Component{
   }
 
   render(){ return (
-    <div >
+    <div className="col-6">
       <form onSubmit={this.mySubmitHandler}>
         <div className="form-group">
           <div className="container ">
-            <div className="row mt-5 justify-content-center align-items-center">
+            <div className="row mt-4 justify-content-center align-items-center">
               <div className="col-5 ">
                 <label htmlFor="fName">*First Name</label>
                 <input type="text" className="form-control" id="fName" required
@@ -100,7 +100,7 @@ class DetailForm extends Component{
               </div>              
             </div>
             <div className="row mt-2 justify-content-center align-items-center">
-              <div className={`${this.state.providerInput.show=='show'?'col-3':'col-5'}`}>
+              <div className={`${this.state.providerInput.show=='show'?'col-3':'col-4'}`}>
                 <label htmlFor="email">*Email Address</label>
                 <input type="text" className="form-control" id="email"  onChange={(e) => {
                 this.setState({customerInfo:{...this.state.customerInfo, email: e.target.value }});
@@ -110,7 +110,7 @@ class DetailForm extends Component{
                 <label></label>
                 <label className="atSizeBig">@</label>                
               </div>    
-              <div className={`pt-2 ${this.state.providerInput.show=='show'?'col-3':'col-4'}`}>
+              <div className={`pt-2 ${this.state.providerInput.show=='show'?'col-3':'col-5'}`}>
                <label ></label>
                 <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => {this.selectionHandler(e)}}>
                   <option value="@gmail.com">gmail.com</option>
@@ -120,7 +120,7 @@ class DetailForm extends Component{
                   <option value="@hotmail.com">hotmail.com</option>
                   <option value="@hotmail.co.nz">hotmail.co.nz</option>
                   <option value="@xtra.com">xtra.com</option>
-                  <option value="@xtra.com">xtra.co.nz</option>
+                  <option value="@xtra.co.nz">xtra.co.nz</option>
                   <option value="other">Other...</option>
                 </select>
               </div>
@@ -137,7 +137,15 @@ class DetailForm extends Component{
               }
                                                         
             </div>
-            <div className="row mt-5 justify-content-center">
+            <div className="row mt-2 justify-content-center">             
+              <div className="form-check col-9 border border-light rounded">
+                <input type="checkbox" className="form-check-input" id="exampleCheck1" required/>
+                <label className="form-check-label" for="exampleCheck1">By sigining up to HT VIP rewards, you consent to receive newsletters about the latest collections, exclusive offers and promotions. You can unsubscribe anytime.</label>
+                <label className="form-check-label mt-2" for="exampleCheck1">A full copy of the T&Cs and privacy policy can be viewed at https://www.happytel.com/viprewards/</label>
+              </div>          
+            </div>
+            
+            <div className="row mt-4 justify-content-center">
               <button type="submit" className="btn btn-primary" >SUBMIT</button>
             </div>
             <SweetAlert
