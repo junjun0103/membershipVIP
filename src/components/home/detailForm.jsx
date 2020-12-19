@@ -71,7 +71,7 @@ class DetailForm extends Component{
   }
 
   render(){ return (
-    <div className="col-6">
+    <div >
       <form onSubmit={this.mySubmitHandler}>
         <div className="form-group">
           <div className="container ">
